@@ -1,0 +1,21 @@
+/* Color */
+.blog-style h4,.blog-style > a:hover,
+.top-bar ul li a:hover, .top-bar a:hover,.team-text h4{
+   
+    color: silver;
+
+}
+/* Background Color */
+.preloader {
+
+    background-color: black;
+
+}
+
+.accordion-item.active a.heading,.blog-style .date,#progress-value,
+.clients-rate,.btn,.quotation button.owl-dot.active,.pricing-plan-style ul li:before,
+.pricing-plan-style a.btn:after {
+
+    background-color: silver;
+
+}

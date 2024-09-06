@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="icon" href="../static/img/free-icon-wrench-953812.png">
+    <!-- CSS only -->
+    <link rel="stylesheet" type="text/css" href="../static/css/bootstrap.min.css">
+    <!-- style -->
+    <link rel="stylesheet" href="../static/css/style.css">
+    <!-- responsive -->
+    <link rel="stylesheet" href="../static/css/responsive.css">
+    <!-- color -->
+    <link rel="stylesheet" href="../static/css/color.css">
+
+    {% block links %}{% endblock %}
+</head>
+
+<body>
+    <!-- preloader -->
+    <div class="preloader">
+      <span class="loader"> </span>
+    </div>
+    <!-- preloader end -->
+
+    <!-- Header -->
+    <header id="stickyHeader">
+      <div class="container">
+        <div class="top-bar">
+          <div class="logo">
+            <a href="#">
+              <img alt="logo" src="../static/img/LOGO.jpg">
+            </a>
+          </div>
+          <nav>
+            <ul>
+              <li><a href="{{url_for('home')}}">Home</a></li>
+              <li><a href="{{url_for('about')}}">About us</a></li>
+              <li><a href="{{url_for('services')}}">Services</a></li>
+              <li><a href="{{url_for('prices')}}">Pricing</a></li>
+              <li><a href="{{url_for('news')}}">News</a></li>
+            </ul>
+          </nav>
+          <div class="login">
+            <a href="#">login</a>
+            <a href="#" class="btn"><span>sign up</span></a>
+          </div>
+        </div>
+      </div>
+    </header>
+  <!-- Header end -->
+
+
+  {% block content %}
+  {% endblock %}
+
+
+  <!-- jQuery -->
+  <script src="../static/js/jquery-3.6.0.min.js"></script>
+  <!-- fancybox -->
+  <script src="../static/js/custom.js"></script>
+</body>
+</html>
