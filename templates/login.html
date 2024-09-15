@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}login{% endblock %}
+
+{% block links %}
+    <!-- modal -->
+    <link rel="stylesheet" href="../static/css/modal.css">
+{% endblock %}
+
+
+{% block content %}
+    <div id="id02" class="modal">
+      <form class="modal-content" method="post" action="/login">
+        <span onclick="document.getElementById('id02').style.display='none'"
+              class="close" title="Закрыть">&#10006;</span>
+        <div class="container">
+          <h2><b>login</b></h2>
+          <hr>
+          <label for="log_in"><b>Логин</b></label>
+          <input id="log_in" type="text" placeholder="Введите логин" name="log_in" required>
+
+          <label for="psw"><b>Пароль</b></label>
+          <input id="psw" type="password" placeholder="Введите пароль" name="psw" required>
+
+          <div class="clearfix">
+            <button type="submit" class="btn">login</button>
+          </div>
+        </div>
+      </form>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+  <!--  registration_modal  -->
+  <script src="../static/js/modal.js"></script>
+{% endblock %}

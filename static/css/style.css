@@ -3,12 +3,12 @@
 body {
     font-family: 'Instrument Sans';
     overflow-x: hidden;
+    background-image: url('https://cs15.pikabu.ru/post_img/2024/08/02/8/1722601422190442698.jpg');
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-color: rgba(0,0,0,0.9);
 }
-.main-container{
-    height: 100vh;
-    max-width: 90%;
-    margin: 0 auto;
-}
+
 p{
     font-family: 'Instrument Sans';
     font-size: 16px;

@@ -7,6 +7,15 @@
 <!--{% endblock %}-->
 
 
+{% block preloader %}
+    <!-- preloader -->
+    <div class="preloader">
+      <span class="loader"> </span>
+    </div>
+    <!-- preloader end -->
+{% endblock %}
+
+
 {% block content %}
 <section id="home" class="hero-section">
   <div class="container">
@@ -19,4 +28,12 @@
     </div>
   </div>
 </section>
+{% endblock %}
+
+
+{% block scripts %}
+  <!-- jQuery -->
+  <script src="../static/js/jquery-3.6.0.min.js"></script>
+  <!-- fancybox -->
+  <script src="../static/js/custom.js"></script>
 {% endblock %}

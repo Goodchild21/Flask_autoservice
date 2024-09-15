@@ -1,0 +1,84 @@
+/* Поля ввода на всю ширину */
+  input[type=text], input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+}
+
+/* Добавляем фоновый цвет, когда поля ввода в фокусе */
+input[type=text]:focus, input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+
+button:hover {
+  opacity:1;
+}
+
+
+/* Добавляем отступы для контейнерных элементов */
+.container {
+  padding: 16px;
+}
+
+/* Модальное окно (фон) */
+.modal {
+  display: block;
+  position: fixed; /* Оставаться на месте */
+  z-index: 1; /* Поверх всего */
+  left: 0;
+  top: 0;
+  width: 100%; /* На всю ширину */
+  height: 100%; /* На всю высоту */
+  overflow: auto; /* Разрешить прокрутку при необходимости */
+  background-color: #474e5d;
+  padding-top: 50px;
+}
+
+/* Модальное окно (содержимое) */
+.modal-content {
+  background-color: #fefefe;
+  margin: 5% auto 15% auto; /* 5% от верха, 15% от низа и по центру */
+  border: 1px solid #888;
+  width: 50%; /* Может быть меньше или больше в зависимости от размера экрана */
+}
+
+/* Стили горизонтального разделителя */
+hr {
+  border: 1px solid #f1f1f1;
+  margin-bottom: 25px;
+}
+
+/* Кнопка закрытия (x) */
+.close {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  font-size: 40px;
+  font-weight: bold;
+  color: black;
+}
+
+.close:hover,
+.close:focus {
+  color: #f44336;
+  cursor: pointer;
+}
+
+/* Очистка обтекания */
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+/* Изменяем стили кнопок отмены и регистрации на маленьких экранах */
+@media screen and (max-width: 300px) {
+  .cancelbtn, .signupbtn {
+    width: 100%;
+  }
+}
