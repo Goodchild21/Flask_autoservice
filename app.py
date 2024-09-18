@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
+from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required
 from werkzeug.security import generate_password_hash, check_password_hash
 # from flask_migrate import Migrate
 
@@ -29,15 +29,14 @@ class User(db.Model, UserMixin):
         return f"{self.first_name}"
 
 
-
-# *****************************************************
 @login_manager.user_loader
 def load_user(log_in):
+    # return  User.query.get(id)
     return db.session.get(User, log_in)
 
 
 
-# *****************************************************
+# *********************************PAGES********************************
 @app.route('/')
 def home():
     return render_template('index.html')
@@ -64,7 +63,7 @@ def sing_up_done():
 
 
 
-# *****************************************************
+# ******************************REGISTRATION*****************************
 @app.route('/sing_up', methods=['POST','GET'])
 def sing_up():
     if request.method == "POST":
@@ -101,7 +100,7 @@ def sing_up():
 
 
 
-# *****************************************************
+# ***************************LOGIN****************************
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -115,15 +114,58 @@ def login():
             return render_template('sing_up_done.html', message=message)
         elif check_password_hash(user.psw, request.form.get('psw')):
             message=f'Шалом, {user}!'
+            login_user(user)
             return render_template('sing_up_done.html', message=message)
+
     return render_template('login.html')
 
 
-# @app.route('/logout')
-# @login_required
-# def logout():
-#     logout_user()
-#     return redirect('/')
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return render_template('index.html')
+
+
+
+# ================================OFFICE================================
+class FeedBackOffice(db.Model):
+    __tablename__ = 'client_office'
+    id = db.Column(db.Integer, primary_key=True)
+    phone = db.Column(db.String, db.ForeignKey('sing_client.id'))
+    brand = db.Column(db.String)
+    model = db.Column(db.String)
+    service = db.Column(db.String)
+
+
+
+@app.route('/office', methods=['POST', 'GET'])
+@login_required
+def office():
+    if request.method == 'POST':
+        feedback_office = FeedBackOffice(
+            phone=request.form.get('phone'),
+            brand=request.form.get('brand'),
+            model=request.form.get('model'),
+            service=request.form.get('service'),
+        )
+        #
+        name = db.session.query(User).filter_by('log_in').first()
+
+
+        try:
+            db.session.add(feedback_office)
+            db.session.commit()
+            message = 'OFFICE UPDATE'
+            return render_template('office_up_done.html', message=message)
+        except:
+            message = 'Произошла ошибка!!!'
+            return render_template('office_up_done.html', message=message)
+    else:
+        #
+        return render_template('office.html', first_name=name)
+
+
 
 
 # @login_required

@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}My office{% endblock %}
+
+{% block links %}
+     <link rel="stylesheet" href="static/css/office.css">
+{% endblock %}
+
+
+{% block preloader %}
+    <!-- preloader -->
+    <div class="preloader">
+      <span class="loader"> </span>
+    </div>
+    <!-- preloader end -->
+{% endblock %}
+
+
+{% block content %}
+<!--  <div id="id01" class="modal">-->
+      <form class="modal-content" action="/office" method="post">
+<!--        <span onclick="document.getElementById('id01').style.display='none'"-->
+<!--              class="close" title="Закрыть">&#10006;</span>-->
+        <div class="container">
+          <h2><b>My office</b></h2>
+          <hr>
+          <label for="first_name"><b>{{first_name}}</b></label>
+          <input id="first_name" type="text" placeholder="Введите Ваше имя" name="first_name" required>
+
+          <label for="middle_name"><b>Отчество</b></label>
+          <input id="middle_name" type="text" placeholder="Введите Ваше имя" name="middle_name">
+
+          <label for="last_name"><b>Фамилия*</b></label>
+          <input id="last_name" type="text" placeholder="Введите Ваше имя" name="last_name" required>
+
+          <label for="email"><b>Электронная почта</b></label>
+          <input id="email" type="text" placeholder="Введите электронную почту" name="email">
+
+          <label for="log_in"><b>Логин*</b></label>
+          <input id="log_in" type="text" placeholder="Придумайте логин" name="log_in" required>
+
+          <label for="psw"><b>Пароль*</b></label>
+          <input id="psw" type="password" placeholder="Придумайте пароль" name="psw" required>
+
+          <div class="clearfix">
+            <button type="submit" class="btn">Sing Up</button>
+          </div>
+        </div>
+      </form>
+<!--  </div>-->
+{% endblock %}
+
+
+{% block scripts %}
+  <!-- jQuery -->
+  <script src="../static/js/jquery-3.6.0.min.js"></script>
+  <!-- fancybox -->
+  <script src="../static/js/custom.js"></script>
+{% endblock %}

@@ -19,3 +19,12 @@
     background-color: silver;
 
 }
+
+h1{
+    color: silver;
+    text-shadow: black 0.05em 0.025em;
+}
+.lgo{
+    color: silver;
+    text-shadow: black 0.07em 0.07em;
+}
