@@ -1,8 +1,12 @@
+from enum import unique
+
 from flask import Flask, render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required
+from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
-# from flask_migrate import Migrate
+from flask_migrate import Migrate
+# from dash_application import create_dash_application
+# from sqlalchemy import create_engine
 
 
 app = Flask(__name__)
@@ -12,8 +16,10 @@ app.config['SECRET_KEY'] = 'secret'
 
 db = SQLAlchemy(app)
 login_manager = LoginManager(app)
+migrate = Migrate(app, db)
 
 
+# create_dash_application(app)
 
 class User(db.Model, UserMixin):
     __tablename__ = 'sing_client'
@@ -27,6 +33,19 @@ class User(db.Model, UserMixin):
 
     def __repr__(self):
         return f"{self.first_name}"
+
+
+class FeedBackOffice(db.Model):
+    __tablename__ = 'client_office'
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('sing_client.id'))
+    phone = db.Column(db.String(13), unique=True)
+    brand = db.Column(db.Text)
+    model = db.Column(db.Text)
+    # service = db.Column(db.String(30))
+
+
+# db.create_all()
 
 
 @login_manager.user_loader
@@ -113,7 +132,7 @@ def login():
             message = 'Не праведный пароль!!!'
             return render_template('sing_up_done.html', message=message)
         elif check_password_hash(user.psw, request.form.get('psw')):
-            message=f'Шалом, {user}!'
+            message=f'Шалом, {user}!' #Выдаст first_name, т.к. в repr'е только имя
             login_user(user)
             return render_template('sing_up_done.html', message=message)
 
@@ -129,46 +148,62 @@ def logout():
 
 
 # ================================OFFICE================================
-class FeedBackOffice(db.Model):
-    __tablename__ = 'client_office'
-    id = db.Column(db.Integer, primary_key=True)
-    phone = db.Column(db.String, db.ForeignKey('sing_client.id'))
-    brand = db.Column(db.String)
-    model = db.Column(db.String)
-    service = db.Column(db.String)
-
-
-
 @app.route('/office', methods=['POST', 'GET'])
 @login_required
 def office():
+    user = db.session.query(User).filter_by(log_in = current_user.log_in).one()
+    first_name = user.first_name
+    middle_name = user.middle_name
+    last_name = user.last_name
+    email = user.email
+
+
     if request.method == 'POST':
         feedback_office = FeedBackOffice(
+            user_id=user.id,
             phone=request.form.get('phone'),
             brand=request.form.get('brand'),
-            model=request.form.get('model'),
-            service=request.form.get('service'),
-        )
-        #
-        name = db.session.query(User).filter_by('log_in').first()
+            model=request.form.get('model')
+            # service=request.form.get('service')
+            )
+        db.session.add(feedback_office)
+        db.session.commit()
+
+        return render_template('office.html',
+                               first_name=first_name,
+                               middle_name=middle_name,
+                               last_name=last_name,
+                               email=email,
+
+                               phone=feedback_office.phone,
+                               brand=feedback_office.brand,
+                               model=feedback_office.model)
 
 
-        try:
-            db.session.add(feedback_office)
-            db.session.commit()
-            message = 'OFFICE UPDATE'
-            return render_template('office_up_done.html', message=message)
-        except:
-            message = 'Произошла ошибка!!!'
-            return render_template('office_up_done.html', message=message)
-    else:
-        #
-        return render_template('office.html', first_name=name)
+# ??????? проблема при поиске в таблице и проблема при создании нового узера(ошибка)
+    if db.session.query(FeedBackOffice).filter_by(user_id = current_user.id):
+        feedback = db.session.query(FeedBackOffice).filter_by(user_id = current_user.id).one()
+        phone = feedback.phone,
+        brand = feedback.brand,
+        model = feedback.model
+
+        return render_template('office.html',
+                                    first_name=first_name,
+                                    middle_name=middle_name,
+                                    last_name=last_name,
+                                    email=email,
+                                    phone=phone,
+                                    brand=brand,
+                                    model=model)
+
+    return render_template('office.html',
+                           first_name=first_name,
+                           middle_name=middle_name,
+                           last_name=last_name,
+                           email=email)
 
 
-
-
-# @login_required
+    # @login_required
 # @app.route('/super_secret')
 # def profile():
 #     return f"User {current_user.username}"
