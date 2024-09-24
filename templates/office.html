@@ -3,7 +3,7 @@
 {% block title %}My office{% endblock %}
 
 {% block links %}
-     <link rel="stylesheet" href="static/css/office.css">
+    <link rel="stylesheet" href="static/css/office.css">
 {% endblock %}
 
 
@@ -17,37 +17,43 @@
 
 
 {% block content %}
-<!--  <div id="id01" class="modal">-->
-      <form class="modal-content" action="/office" method="post">
-<!--        <span onclick="document.getElementById('id01').style.display='none'"-->
-<!--              class="close" title="Закрыть">&#10006;</span>-->
-        <div class="container">
-          <h2><b>My office</b></h2>
-          <hr>
-          <label for="first_name"><b>{{first_name}}</b></label>
-          <input id="first_name" type="text" placeholder="Введите Ваше имя" name="first_name" required>
+    <div class="container">
+        <br>
+        <br>
+        <h2><b>My office</b></h2>
+        <hr>
+        <p><b>First name:</b> &nbsp;&nbsp;{{ first_name }}</p>
+        <p><b>Middle name:</b> &nbsp;&nbsp;{{ middle_name }}</p>
+        <p><b>Last name:</b> &nbsp;&nbsp;{{ last_name }}</p>
+        <p><b>Email:</b> &nbsp;&nbsp;{{ email }}</p>
+        <p><b>Phone:</b> &nbsp;&nbsp;{{ phone }}</p>
+        <p><b>Brand:</b> &nbsp;&nbsp;{{ brand }}</p>
+        <p><b>Model:</b> &nbsp;&nbsp;{{ model }}</p>
 
-          <label for="middle_name"><b>Отчество</b></label>
-          <input id="middle_name" type="text" placeholder="Введите Ваше имя" name="middle_name">
+        <br>
+        <form class="office_form" action="/office" method="post">
+            <label for="phone"><p><b>Input phone</b></p></label>
+            <input id="phone" type="text" placeholder="+7" name="phone">
 
-          <label for="last_name"><b>Фамилия*</b></label>
-          <input id="last_name" type="text" placeholder="Введите Ваше имя" name="last_name" required>
+            <label for="brand"><p><b>Input auto</b></p></label>
+            <select id="brand" name="brand">
+                <option value="Alpina">Alpina</option>
+                <option value="Mazda">Mazda</option>
+                <option value="Audi">Audi</option>
+            </select>
 
-          <label for="email"><b>Электронная почта</b></label>
-          <input id="email" type="text" placeholder="Введите электронную почту" name="email">
+            <label for="model"><p><b>input model</b></p></label>
+            <select id="model" name="model">
+                <option value="B3">B3</option>
+                <option value="6GJ">6GJ</option>
+                <option value="Q5">Q5</option>
+            </select>
 
-          <label for="log_in"><b>Логин*</b></label>
-          <input id="log_in" type="text" placeholder="Придумайте логин" name="log_in" required>
-
-          <label for="psw"><b>Пароль*</b></label>
-          <input id="psw" type="password" placeholder="Придумайте пароль" name="psw" required>
-
-          <div class="clearfix">
-            <button type="submit" class="btn">Sing Up</button>
-          </div>
-        </div>
-      </form>
-<!--  </div>-->
+            <div class="clearfix">
+                <button type="submit" class="btn btn_office">push</button>
+            </div>
+        </form>
+    </div>
 {% endblock %}
 
 

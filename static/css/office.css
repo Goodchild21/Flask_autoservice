@@ -2,3 +2,11 @@ body{
     background: url('https://kotsport.ru/wp-content/uploads/2024/01/tuman-na-trasse-1.webp') no-repeat;
     background-size: 100%;
 }
+.office_form{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.btn_office{
+    margin-top: 10px
+}
