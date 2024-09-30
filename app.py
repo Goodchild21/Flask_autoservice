@@ -1,5 +1,3 @@
-from enum import unique
-
 from flask import Flask, render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
@@ -181,7 +179,7 @@ def office():
 
 
 # ??????? проблема при поиске в таблице и проблема при создании нового узера(ошибка)
-    if db.session.query(FeedBackOffice).filter_by(user_id = current_user.id):
+    if FeedBackOffice.user_id == current_user.id:
         feedback = db.session.query(FeedBackOffice).filter_by(user_id = current_user.id).one()
         phone = feedback.phone,
         brand = feedback.brand,
@@ -210,4 +208,4 @@ def office():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', debug=True)
